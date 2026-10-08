@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#071625">
+    <title>Create Account | Anas Musa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+
+<body class="signup-page-compact">
+    <main class="signup-shell" aria-labelledby="signup-title">
+        <h1 id="signup-title">Create Account</h1>
+        <p class="signup-subtitle">Fill in the details below to get started.</p>
+
+        <form id="signupForm" class="signup-form" novalidate>
+            <div class="signup-field">
+                <span class="signup-icon"><i class="fa-solid fa-user"></i></span>
+                <input type="text" id="signupName" name="fullName" placeholder="Full name" autocomplete="name" required>
+            </div>
+
+            <div class="signup-field">
+                <span class="signup-icon"><i class="fa-solid fa-envelope"></i></span>
+                <input type="email" id="signupEmail" name="email" placeholder="Email address" autocomplete="email" required>
+            </div>
+
+            <div class="signup-field password-field">
+                <span class="signup-icon"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="signupPassword" name="password" placeholder="Password" autocomplete="new-password" required>
+                <button type="button" class="toggle-password" aria-label="Show password">
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+            </div>
+
+            <div class="signup-field password-field">
+                <span class="signup-icon"><i class="fa-solid fa-lock"></i></span>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" autocomplete="new-password" required>
+                <button type="button" class="toggle-password" aria-label="Show password">
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+            </div>
+
+            <label class="checkbox-row" for="termsAgreement">
+                <input type="checkbox" id="termsAgreement" name="termsAgreement" required>
+                <span>I agree to the Terms of Service and Privacy Policy</span>
+            </label>
+
+            <button type="submit" class="primary-signup-btn">
+                <span>Create Account</span>
+                <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+            </button>
+
+            <p id="signupNotice" class="signup-notice" role="status" aria-live="polite"></p>
+
+            <div class="divider" aria-hidden="true">
+                <span></span>
+                <strong>or</strong>
+                <span></span>
+            </div>
+
+            <div class="social-actions">
+                <button type="button" class="social-btn google-btn" aria-label="Continue with Google">
+                    <span class="google-mark">G</span>
+                    <span>Continue with Google</span>
+                </button>
+
+                <button type="button" class="social-btn github-btn" aria-label="Continue with GitHub">
+                    <i class="fa-brands fa-github"></i>
+                    <span>Continue with GitHub</span>
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <script src="script.js"></script>
+    <script type="module" src="firebase-auth.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content="0;url=index.html#blog" />
+    <title>Anas Blog | Redirecting</title>
+    <script>window.location.replace("index.html#blog");</script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      :root {
+        --bg-dark: #120c2d;
+        --bg-panel: #1a1239;
+        --bg-card: #20153f;
+        --bg-card-2: #2f1d56;
+        --accent: #e18ae9;
+        --accent-2: #9d7bff;
+        --primary: #f6f0ff;
+        --muted: #d8d0eb;
+        --soft: #b09adf;
+        --line: rgba(255, 255, 255, 0.08);
+        --shadow: rgba(5, 2, 18, 0.45);
+      }
+
+      * { box-sizing: border-box; }
+
+      html { scroll-behavior: smooth; }
+
+      body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0a071b;
+        color: var(--primary);
+      }
+
+      a { text-decoration: none; color: inherit; }
+
+      .blog-shell {
+        width: min(92vw, 760px);
+        margin: 30px auto;
+        background: linear-gradient(180deg, #181032 0%, #130d2d 100%);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        box-shadow: 0 24px 60px var(--shadow);
+      }
+
+      .blog-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 28px 12px;
+        background: rgba(18, 12, 45, 0.75);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .brand-mark {
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, #f2d5ff, #a876ff);
+        color: #1b0d36;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 700;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+        font-size: 0.8rem;
+        color: var(--muted);
+      }
+
+      .nav a {
+        opacity: 0.9;
+        transition: 0.2s ease;
+      }
+
+      .nav a:hover { color: #fff; }
+
+      .page-body {
+        padding: 8px 28px 18px;
+      }
+
+      .hero {
+        padding: 18px 0 18px;
+      }
+
+      .page-title {
+        margin: 0;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-weight: 700;
+        letter-spacing: -0.03em;
+      }
+
+      .subtitle {
+        margin: 8px 0 22px;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .explore-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 18px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #fff;
+        background: linear-gradient(90deg, #2b1e4e, #3a2b6a);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 8px;
+        box-shadow: 0 10px 24px rgba(125, 92, 222, 0.25);
+      }
+
+      .explore-btn .arrow {
+        display: inline-flex;
+        width: 20px;
+        height: 20px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.14);
+        font-size: 0.8rem;
+      }
+
+      .section-head {
+        margin: 18px 0 16px;
+        font-size: clamp(1.4rem, 2vw, 1.9rem);
+        font-weight: 700;
+      }
+
+      .post-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 18px 18px;
+        margin-top: 10px;
+      }
+
+      .card {
+        background: linear-gradient(180deg, rgba(47, 29, 86, 0.88), rgba(30, 21, 57, 0.92));
+        border: 1px solid rgba(255, 255, 255, 0.09);
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 8px 18px rgba(7, 5, 16, 0.3);
+      }
+
+      .card-image {
+        height: 180px;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .card-body {
+        padding: 14px 14px 12px;
+      }
+
+      .card-tag {
+        display: inline-block;
+        margin: 0 0 10px;
+        font-size: 0.75rem;
+        color: #f5d7ff;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+
+      .card-body h3 {
+        margin: 0 0 10px;
+        font-size: 1.05rem;
+        line-height: 1.35;
+      }
+
+      .post-excerpt { color: var(--muted); font-size: 0.85rem; line-height: 1.55; }
+      .post-content { color: var(--muted); font-size: 0.9rem; line-height: 1.65; white-space: pre-wrap; }
+      .post-details summary { list-style: none; cursor: pointer; }
+      .post-details summary::-webkit-details-marker { display: none; }
+      .feed-empty { grid-column: 1 / -1; color: var(--muted); }
+
+      .meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.72);
+      }
+
+      .author-wrap {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .avatar {
+        width: 26px;
+        height: 26px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #f3d8ff, #8ea9ff);
+        color: #170d2f;
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        font-size: 0.72rem;
+      }
+
+      .read-more {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-top: 14px;
+        color: #f3d9ff;
+        font-size: 0.82rem;
+        font-weight: 700;
+      }
+
+      .read-more i {
+        font-size: 0.72rem;
+        transform: translateY(1px);
+      }
+
+      .blog-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 28px 24px;
+        border-top: 1px solid var(--line);
+      }
+
+      .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 1.4rem;
+        font-weight: 700;
+      }
+
+      .footer-note {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 0.8rem;
+      }
+
+      .socials {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .socials a {
+        width: 28px;
+        height: 28px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 680px) {
+        .blog-shell { margin: 18px auto; }
+
+        .blog-header,
+        .page-body,
+        .blog-footer {
+          padding-left: 16px;
+          padding-right: 16px;
+        }
+
+        .blog-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+        }
+
+        .nav {
+          flex-wrap: wrap;
+          gap: 10px 14px;
+        }
+
+        .post-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .blog-footer {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="blog-shell">
+      <header class="blog-header">
+        <div class="brand">
+          <span class="brand-mark">A</span>
+          <span>Anas Blog</span>
+        </div>
+
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html#home">Home</a>
+          <a href="index.html#about">About</a>
+          <a href="index.html#blog">Blog</a>
+          <a href="index.html#contact">Contact</a>
+        </nav>
+      </header>
+
+      <main class="page-body">
+        <section class="hero">
+          <h1 class="page-title">My Blog</h1>
+          <p class="subtitle">Ideas, Thoughts &amp; Technology</p>
+          <a href="#posts" class="explore-btn">
+            <span>Explore Articles</span>
+            <span class="arrow"><i class="fa-solid fa-arrow-right"></i></span>
+          </a>
+        </section>
+
+        <h2 class="section-head" id="posts">Latest Posts</h2>
+
+        <div class="post-grid" id="blogPostGrid" aria-live="polite">
+          <p class="feed-empty">Loading articles...</p>
+        </div>
+      </main>
+
+      <footer class="blog-footer">
+        <div class="footer-brand">
+          <span class="brand-mark">A</span>
+          <span>Anas Blog</span>
+        </div>
+
+        <div class="footer-note">Better ideas. Bigger Dreams</div>
+
+        <div class="socials" aria-label="Social links">
+          <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="firebase-data.js"></script>
+  </body>
+</html>

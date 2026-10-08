@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#071625">
+    <title>Admin Dashboard | Anas Musa</title>
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+    <section class="access-gate" id="accessGate" aria-labelledby="gateTitle">
+        <a class="admin-brand" href="index.html"><span class="brand-mark">A</span> ANAS / CONTROL</a>
+        <div class="gate-content">
+            <span class="eyebrow">PRIVATE WORKSPACE</span>
+            <h1 id="gateTitle">Sign in to continue</h1>
+            <p id="accessMessage" role="status">Checking your administrator access...</p>
+            <a class="button-link" id="adminLoginLink" href="login.html?next=admin.html">Go to login</a>
+            <button class="button-link secondary" id="sendVerification" type="button" hidden>Resend verification email</button>
+        </div>
+    </section>
+
+    <main class="admin-app" id="adminApp" hidden>
+        <header class="topbar">
+            <a class="admin-brand" href="index.html"><span class="brand-mark">A</span> ANAS / CONTROL</a>
+            <div class="account-actions">
+                <span id="adminEmail"></span>
+                <button class="icon-button" id="signOutButton" type="button" aria-label="Sign out" title="Sign out"><i class="fa-solid fa-arrow-right-from-bracket"></i></button>
+            </div>
+        </header>
+
+        <div class="workspace">
+            <div class="page-heading">
+                <div>
+                    <span class="eyebrow">PORTFOLIO MANAGEMENT</span>
+                    <h1>Dashboard</h1>
+                </div>
+                <a class="visit-site" href="index.html" target="_blank" rel="noopener">View portfolio <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+
+            <section class="metrics" aria-label="Portfolio overview">
+                <article class="metric"><span>Published articles</span><strong id="postCount">0</strong></article>
+                <article class="metric"><span>Messages received</span><strong id="messageCount">0</strong></article>
+                <article class="metric"><span>Unread messages</span><strong id="unreadCount">0</strong></article>
+            </section>
+
+            <nav class="tabs" aria-label="Admin sections" role="tablist">
+                <button class="tab active" type="button" role="tab" aria-selected="true" data-panel="overviewPanel"><i class="fa-solid fa-chart-line"></i> Overview</button>
+                <button class="tab" type="button" role="tab" aria-selected="false" data-panel="postsPanel"><i class="fa-solid fa-pen-to-square"></i> Blog posts</button>
+                <button class="tab" type="button" role="tab" aria-selected="false" data-panel="inboxPanel"><i class="fa-solid fa-inbox"></i> Contact inbox <span class="tab-count" id="unreadBadge">0</span></button>
+            </nav>
+
+            <section class="admin-panel active" id="overviewPanel" role="tabpanel">
+                <div class="panel-heading"><div><span class="eyebrow">RECENT ACTIVITY</span><h2>Latest posts</h2></div><button class="text-button" type="button" data-open-panel="postsPanel">Manage posts <i class="fa-solid fa-arrow-right"></i></button></div>
+                <div class="entry-list" id="recentPosts"><p class="empty-state">Loading posts...</p></div>
+                <div class="panel-heading inbox-heading"><div><span class="eyebrow">YOUR INBOX</span><h2>Recent messages</h2></div><button class="text-button" type="button" data-open-panel="inboxPanel">Open inbox <i class="fa-solid fa-arrow-right"></i></button></div>
+                <div class="entry-list" id="recentMessages"><p class="empty-state">Loading messages...</p></div>
+            </section>
+
+            <section class="admin-panel" id="postsPanel" role="tabpanel" hidden>
+                <div class="panel-heading"><div><span class="eyebrow">PUBLISH</span><h2>Write an article</h2></div></div>
+                <form class="editor-form" id="postForm">
+                    <label>Title<input name="title" type="text" maxlength="120" required></label>
+                    <div class="form-row">
+                        <label>Category<input name="category" type="text" maxlength="50" placeholder="Web development" required></label>
+                        <label>Cover image URL<input name="imageUrl" type="url" maxlength="1200" placeholder="https://... (optional)"></label>
+                    </div>
+                    <label>Short introduction<textarea name="excerpt" rows="3" maxlength="400" required></textarea></label>
+                    <label>Article content<textarea name="content" rows="10" maxlength="15000" required></textarea></label>
+                    <div class="form-footer"><p id="postNotice" class="form-notice" role="status"></p><button class="primary-button" type="submit"><i class="fa-solid fa-paper-plane"></i> Publish article</button></div>
+                </form>
+                <div class="panel-heading list-heading"><div><span class="eyebrow">LIVE ON YOUR SITE</span><h2>Published articles</h2></div></div>
+                <div class="entry-list" id="allPosts"><p class="empty-state">Loading posts...</p></div>
+            </section>
+
+            <section class="admin-panel" id="inboxPanel" role="tabpanel" hidden>
+                <div class="panel-heading"><div><span class="eyebrow">CONTACT FORM</span><h2>Messages</h2></div></div>
+                <div class="entry-list message-list" id="allMessages"><p class="empty-state">Loading messages...</p></div>
+            </section>
+            <p class="admin-notice" id="adminNotice" role="status" aria-live="polite"></p>
+        </div>
+    </main>
+    <script type="module" src="admin.js"></script>
+</body>
+</html>
