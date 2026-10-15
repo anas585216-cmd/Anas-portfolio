@@ -153,6 +153,7 @@ button { color: inherit; }
 .editor-form textarea { resize: vertical; line-height: 1.55; }
 .form-row { display: grid; grid-template-columns: 1fr 1.4fr; gap: 14px; }
 .form-footer { display: flex; align-items: center; justify-content: space-between; gap: 14px; }
+.form-actions { display: flex; align-items: center; gap: 8px; }
 .form-notice { min-height: 20px; margin: 0; color: var(--admin-coral); font-size: 0.85rem; }
 .form-notice.is-success { color: #187345; }
 .primary-button { border: 0; }
@@ -175,5 +176,6 @@ button { color: inherit; }
     .entry-row { flex-direction: column; gap: 12px; }
     .form-row { grid-template-columns: 1fr; }
     .form-footer { align-items: flex-start; flex-direction: column; }
+    .form-actions { flex-wrap: wrap; }
     .button-link.secondary { margin: 10px 0 0; }
 }

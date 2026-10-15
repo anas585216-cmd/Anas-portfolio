@@ -2,7 +2,6 @@ import {
     createUserWithEmailAndPassword,
     GithubAuthProvider,
     GoogleAuthProvider,
-    getAuth,
     sendPasswordResetEmail,
     setPersistence,
     signInWithEmailAndPassword,
@@ -34,6 +33,8 @@ function errorMessage(error) {
         "auth/invalid-credential": "The email or password is incorrect.",
         "auth/too-many-requests": "Too many attempts. Please try again later.",
         "auth/popup-closed-by-user": "The sign-in popup was closed before completing.",
+        "auth/popup-blocked": "Your browser blocked the sign-in popup. Allow popups and try again.",
+        "auth/cancelled-popup-request": "Another sign-in popup is already open.",
         "auth/unauthorized-domain": "This website domain is not authorized in Firebase.",
         "auth/operation-not-allowed": "This sign-in method is not enabled in Firebase.",
         "auth/network-request-failed": "Network error. Check your connection and try again."
@@ -178,9 +179,16 @@ socialButtons.forEach((button) => {
             : new GithubAuthProvider();
         setBusy(button, true);
         try {
+            if (loginForm) {
+                const rememberMe = document.getElementById("rememberMe");
+                await setPersistence(
+                    auth,
+                    rememberMe.checked ? browserLocalPersistence : browserSessionPersistence
+                );
+            }
             await signInWithPopup(auth, provider);
             showNotice(notice, "Signed in successfully. Redirecting...", true);
-            window.location.assign("index.html");
+            window.location.assign(getNextPage());
         } catch (error) {
             showNotice(notice, errorMessage(error));
             setBusy(button, false);

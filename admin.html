@@ -58,7 +58,7 @@
             </section>
 
             <section class="admin-panel" id="postsPanel" role="tabpanel" hidden>
-                <div class="panel-heading"><div><span class="eyebrow">PUBLISH</span><h2>Write an article</h2></div></div>
+                <div class="panel-heading"><div><span class="eyebrow">PUBLISH</span><h2 id="postFormHeading">Write an article</h2></div></div>
                 <form class="editor-form" id="postForm">
                     <label>Title<input name="title" type="text" maxlength="120" required></label>
                     <div class="form-row">
@@ -67,7 +67,7 @@
                     </div>
                     <label>Short introduction<textarea name="excerpt" rows="3" maxlength="400" required></textarea></label>
                     <label>Article content<textarea name="content" rows="10" maxlength="15000" required></textarea></label>
-                    <div class="form-footer"><p id="postNotice" class="form-notice" role="status"></p><button class="primary-button" type="submit"><i class="fa-solid fa-paper-plane"></i> Publish article</button></div>
+                    <div class="form-footer"><p id="postNotice" class="form-notice" role="status"></p><div class="form-actions"><button class="small-button" id="cancelPostEdit" type="button" hidden>Cancel edit</button><button class="primary-button" id="postSubmitButton" type="submit"><i class="fa-solid fa-paper-plane"></i> Publish article</button></div></div>
                 </form>
                 <div class="panel-heading list-heading"><div><span class="eyebrow">LIVE ON YOUR SITE</span><h2>Published articles</h2></div></div>
                 <div class="entry-list" id="allPosts"><p class="empty-state">Loading posts...</p></div>

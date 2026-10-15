@@ -8,7 +8,7 @@ import {
     orderBy,
     query,
     serverTimestamp,
-    updateDoc
+    updateDoc,
 } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 import { auth, db } from "./firebase.js";
 
@@ -18,6 +18,11 @@ const accessMessage = document.getElementById("accessMessage");
 const adminApp = document.getElementById("adminApp");
 const adminNotice = document.getElementById("adminNotice");
 const verificationButton = document.getElementById("sendVerification");
+const postForm = document.getElementById("postForm");
+const postFormHeading = document.getElementById("postFormHeading");
+const postSubmitButton = document.getElementById("postSubmitButton");
+const cancelPostEditButton = document.getElementById("cancelPostEdit");
+let editingPostId = null;
 
 function setNotice(element, message, success = false) {
     element.textContent = message;
@@ -41,6 +46,33 @@ function makeActionButton(label, className, handler) {
     return button;
 }
 
+function setPostFormMode(postDocument = null) {
+    editingPostId = postDocument?.id || null;
+    if (postDocument) {
+        const post = postDocument.data();
+        postForm.elements.namedItem("title").value = post.title || "";
+        postForm.elements.namedItem("category").value = post.category || "";
+        postForm.elements.namedItem("imageUrl").value = post.imageUrl || "";
+        postForm.elements.namedItem("excerpt").value = post.excerpt || "";
+        postForm.elements.namedItem("content").value = post.content || "";
+        postFormHeading.textContent = "Edit article";
+        postSubmitButton.innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save changes';
+        cancelPostEditButton.hidden = false;
+    } else {
+        postForm.reset();
+        postFormHeading.textContent = "Write an article";
+        postSubmitButton.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Publish article';
+        cancelPostEditButton.hidden = true;
+    }
+}
+
+function editPost(postDocument) {
+    activatePanel("postsPanel");
+    setPostFormMode(postDocument);
+    document.getElementById("postForm").scrollIntoView({ behavior: "smooth", block: "start" });
+    postForm.elements.namedItem("title").focus();
+}
+
 function createPostRow(postDocument) {
     const post = postDocument.data();
     const row = document.createElement("article");
@@ -57,6 +89,7 @@ function createPostRow(postDocument) {
     copy.append(title, meta, excerpt);
     const actions = document.createElement("div");
     actions.className = "entry-actions";
+    actions.append(makeActionButton("Edit", "", () => editPost(postDocument)));
     actions.append(makeActionButton("Delete", "danger", async () => {
         if (!window.confirm(`Delete "${post.title}"?`)) return;
         try {
@@ -179,7 +212,7 @@ document.querySelectorAll("[data-open-panel]").forEach((button) => {
     button.addEventListener("click", () => activatePanel(button.dataset.openPanel));
 });
 
-document.getElementById("postForm").addEventListener("submit", async (event) => {
+postForm.addEventListener("submit", async (event) => {
     event.preventDefault();
     const form = event.currentTarget;
     const submitButton = form.querySelector('[type="submit"]');
@@ -190,22 +223,37 @@ document.getElementById("postForm").addEventListener("submit", async (event) => 
         imageUrl: String(values.get("imageUrl")).trim(),
         excerpt: String(values.get("excerpt")).trim(),
         content: String(values.get("content")).trim(),
-        published: true,
-        createdAt: serverTimestamp(),
         updatedAt: serverTimestamp()
     };
+    if (!editingPostId) {
+        post.published = true;
+        post.createdAt = serverTimestamp();
+    }
 
     submitButton.disabled = true;
     try {
-        await addDoc(collection(db, "posts"), post);
-        form.reset();
-        setNotice(document.getElementById("postNotice"), "Article published on your blog.", true);
+        if (editingPostId) {
+            await updateDoc(doc(db, "posts", editingPostId), post);
+            setPostFormMode();
+            setNotice(document.getElementById("postNotice"), "Article updated.", true);
+        } else {
+            await addDoc(collection(db, "posts"), post);
+            form.reset();
+            setNotice(document.getElementById("postNotice"), "Article published on your blog.", true);
+        }
         await loadDashboard();
     } catch {
-        setNotice(document.getElementById("postNotice"), "Could not publish. Check that Firestore is enabled and its rules are deployed.");
+        setNotice(document.getElementById("postNotice"), editingPostId
+            ? "Could not update the article. Check Firestore setup and security rules."
+            : "Could not publish. Check that Firestore is enabled and its rules are deployed.");
     } finally {
         submitButton.disabled = false;
     }
+});
+
+cancelPostEditButton.addEventListener("click", () => {
+    setPostFormMode();
+    setNotice(document.getElementById("postNotice"), "");
 });
 
 document.getElementById("signOutButton").addEventListener("click", () => signOut(auth));
